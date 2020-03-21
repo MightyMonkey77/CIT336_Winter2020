@@ -1,0 +1,57 @@
+/* CIT 335 Winter Course 2020
+	Text File for
+	Enhancment 2 
+	SQL
+	By Daryl Payne
+	01/23/2020
+	Notes: This comes from Spring semesters database managment class learnings. 
+	It why it is structured this particular way.
+*/
+DROP TABLE clients;
+
+
+CREATE TABLE clients
+( clientId         int NOT NULL AUTO_INCREMENT
+, clientLastName   varchar(15)  NOT NULL
+, clientFirstname  varchar(25)  NOT NULL
+, clientEmail      varchar(50)  NOT NULL
+, clientPassword   varchar(255) NOT NULL
+, description      TEXT
+,PRIMARY KEY (clientId) 
+);
+
+
+INSERT INTO clients (clientFirstname, clientLastname, clientEmail, clientPassword, description)
+	 VALUES (  'Tony' 
+			, 'Stark'
+			, 'tony@starknet.com'
+			, 'Iam1ronM@n'
+			, 'I am the real Ironman'
+			);
+			
+
+ALTER TABLE clients
+ADD clientLevel ENUM ('1','2','3');
+
+UPDATE clients
+SET clientLevel = 3
+WHERE clientFirstname = 'Tony';
+
+/* Changing the inventory tables Nylon rope description to Climbing Rope */
+
+UPDATE inventory
+SET    invDescription = 'This nylon rope is ideal for all uses. Each rope is the highest quality nylon and comes in 100 foot lengths.', invStyle = 'Climbing Rope', invName = 'Climbing Rope' 
+WHERE  invName LIKE 'Nylon%';
+
+SELECT * FROM inventory WHERE invId = 15; 
+
+
+/* This will only work if I have it correct. Still cannot access the database or phpMyAdmin to create it. But this is how I would do it.*/
+
+SELECT invName
+FROM inventory AS i
+INNER JOIN categories AS c ON i.categoryId = c.categoryId
+WHERE c.categoryName LIKE 'Misc';
+
+DELETE FROM inventory
+WHERE invName LIKE 'Koenigsegg CCX Car'; 
